@@ -1,16 +1,10 @@
-
-
 # Import Libraries
 import pickle
-import numpy as np
 from flask import Flask, request, jsonify
 
-# Load trained model and vectorizer
+# Load trained model
 with open("fake_news_model.pkl", "rb") as model_file:
     model = pickle.load(model_file)
-
-with open("tfidf_vectorizer.pkl", "rb") as vec_file:
-    vectorizer = pickle.load(vec_file)
 
 # Initialize Flask App
 app = Flask(__name__)
@@ -26,11 +20,8 @@ def predict():
         data = request.json
         text = data.get("text", "")
 
-        # Convert text to TF-IDF vector
-        text_vector = vectorizer.transform([text]).toarray()
-
-        # Make prediction
-        prediction = model.predict(text_vector)[0]
+        # Directly make prediction with the raw text
+        prediction = model.predict([text])[0]  # Assuming model works with raw text
 
         # Return JSON response
         result = {"prediction": "REAL" if prediction == 1 else "FAKE"}
