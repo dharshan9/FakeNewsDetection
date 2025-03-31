@@ -52,3 +52,4 @@ scikit-learn – Machine Learning Model
 matplotlib, seaborn – Data Visualization
 ✅ Model: TF-IDF + Multinomial Naïve Bayes
 ✅ Deployment: Flask API
+
